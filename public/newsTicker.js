@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const apiKey = 'chq6hp1r01qt7cgvte3gchq6hp1r01qt7cgvte40';  // Replace with your actual API key
+    const apiKey = '';  // Replace with your actual API key
     const newsTicker = document.getElementById('newsTicker');
     const tickerInput = document.getElementById('tickerInput');
 
