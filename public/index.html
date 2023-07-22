@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="x-ua-compatible" content="IE=edge">
+		<meta name="author" content="SemiColonWeb">
+		<meta name="description" content="Get Canvas to build powerful websites easily with the Highly Customizable & Best Selling Bootstrap Template, today.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+		<!-- Bootstrap JS and its dependencies -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	
+		<!-- Font Imports -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+	
+		<!-- CSS for DataTables -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	
+		<!-- Other CSS files -->
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="css/font-icons.css">
+		<link rel="stylesheet" href="css/components/bs-datatable.css">
+		<link rel="stylesheet" href="css/custom.css">
+	
+		<!-- jQuery -->
+		<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	
+		<!-- Moment.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	
+		<!-- DataTables -->
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	
+		<!-- datetime-moment.js -->
+		<script src="js/datetime-moment.js"></script>
+
+		<!-- Lottie Animation -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.8/lottie.min.js" crossorigin="anonymous"></script>
+
+	
+		<!-- Document Title -->
+		<title>Data Tables | Canvas</title>
+
+		<!-- BootStrap -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+		<style>
+			.question-button {
+				padding: 10px;
+				margin: 5px;
+			}
+			.chat-container {
+				margin-top: 20px; /* Added top margin */
+			}
+		</style>
+		<script>
+			function setQuery(query) {
+				let chatInput = document.getElementById('chat-input');
+				chatInput.value = query;
+			}
+		
+			async function sendQuery() {
+				let chatInput = document.getElementById('chat-input');
+				let inputValue = chatInput.value;
+				let button = document.getElementById('transmit-button');
+				button.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing...'; // Show the loading spinner
+				const data = {
+					"chatInput": inputValue
+				};
+				const response = await fetch(
+					"/api/chat",
+					{
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						method: "POST",
+						body: JSON.stringify(data),
+					}
+				);
+				const result = await response.json();
+				console.log(JSON.stringify(result));
+		
+				button.innerHTML = '<i class="fas fa-hand"></i> Transmit'; // Hide the loading spinner
+		
+				// Check if result exists before attempting to replace
+				let chatOutput = document.getElementById('response-output');
+				if(result && result.data) {
+					let textResponse = result.data.replace(/\n/g, '<br>');
+					chatOutput.innerHTML += '<b>You:</b> ' + inputValue + '<br><b>Cathy:</b> ' + textResponse + '<br>';
+				} else {
+					chatOutput.innerHTML += '<b>You:</b> ' + inputValue + '<br><b>Cathy:</b> No response received.<br>';
+				}
+		
+				// Clear the input field
+				chatInput.value = '';
+			}
+		</script>				
+	</head>
+
+<body class="stretched" data-menu-breakpoint="1200">
+
+	<!-- Go To Bottom -->
+	<div id="gotoBottom" class="uil uil-angle-down" onclick="scrollToBottom()"></div>
+	
+	<script>
+		function scrollToBottom() {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: 'smooth'
+			});
+		}
+	
+		document.getElementById("gotoBottom").onclick = scrollToBottom;
+	</script>
+  	
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="dark transparent-header" data-sticky-class="not-dark" data-responsive-class="not-dark">
+			<div id="header-wrap">
+				<div class="container">
+					<div class="header-row">
+
+						<!-- Logo
+						============================================= -->
+						<div id="logo" class="me-5">
+							<a href="index.html">
+								<img class="logo-default" srcset="images/logo.png, images/logo@2x.png 2x" src="https://redexstorage.b-cdn.net/logo.png" alt="RedEx Logo">
+								<img class="logo-dark" srcset="images/logo-dark.png, images/logo-dark@2x.png 2x" src="https://redexstorage.b-cdn.net/logo-dark.png" alt="RedEx Logo">
+							</a>
+						</div><!-- #logo end -->
+
+						<div class="header-misc ms-auto ms-xl-0">
+							<a href="https://airtable.com/appN0uLlCUf6daByl/pagNV6vXUWAnRPcTz" target="_blank" class="button button-border border-contrast-900 text-contrast-900 h-text-contrast-100 button-shadow button-shadow-contrast rounded-1 px-3 px-lg-4 me-3 me-xl-0"><i class="fa-solid fa fa-table d-block d-md-none me-1"></i><span class="d-none d-md-block">Airtable</span></a>
+						</div>
+
+						<div class="primary-menu-trigger">
+							<button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+								<span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+							</button>
+						</div>
+
+						<!-- Primary Navigation
+						============================================= -->
+						<nav class="primary-menu flex-xl-fill me-auto">
+							<ul class="menu-container">
+								<li class="menu-item">
+									<a class="menu-link" href="intro.html#niche-demos"><div>Bulk Redeemer</div></a>
+									<ul class="sub-menu-container">
+										<li class="menu-item">
+											<a class="menu-link" href="bulkredeem.pdf"><div><i class="bi-stars align-baseline top-0"></i>Online Form</div></a>
+										</li>
+									</ul>
+								</li>
+						</nav><!-- #primary-menu end -->
+
+					</div>
+				</div>
+			</div>
+			<div class="header-wrap-clone"></div>
+		</header><!-- #header end -->
+
+		<!-- Page Title
+		============================================= -->
+		<section class="page-title dark page-title-parallax parallax include-header py-6">
+			<img src="images/intro/bg-2.jpg" class="parallax-bg">
+			<div class="container">
+				<div class="page-title-row pb-5 align-items-lg-end">
+
+					<div class="page-title-content">
+						<h1>Data CockPit</h1>
+						<h4>RedEx DataCenter</h4>
+
+						<div class="page-title-buttons mt-5">
+							<button class="button button-border button-light rounded px-5 mb-0" data-scrollto="#content" data-offset="60">Receiving Data <i class="uil uil-arrow-circle-down ms-1"></i></button>
+							<a href="#" class="button button-border button-light rounded px-5 mb-0" data-scrollto="#shipped">Shipping Data <i class="uil uil-cell ms-1"></i></a>
+							<a href="#" class="button button-border button-light rounded px-5 mb-0" data-scrollto="#chat-bot">Data Chat  <i class="uil uil-comment-question"></i></a>
+							<a href="#" class="button button-border button-light rounded px-5 mb-0" data-toggle="modal" data-target="#videoModal" >Trader's Den <i class="uil uil-chart-line"></i></a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section><!-- .page-title end -->
+
+				<!-- Chat Area
+		============================================= -->
+		<div id="page-menu">
+			<div id="page-menu-wrap">
+				<div class="container">
+					<div class="page-menu-row">
+
+						<div class="page-menu-title">Data <span>Communicator</span></div>
+
+					</div>
+				</div>
+			</div>
+		</div><!-- #page-menu end -->
+
+        <!-- Chatbot-->
+		<section id="chat-bot">
+			<div class="content-wrap">
+				<div class="container chat-container">
+					<div class="form-group">
+						<h5>Chat with Cathy!</h5>
+						<div class="form-control" id="response-output" style="height: 200px; overflow: auto;"></div>
+					</div>
+					<div class="mt-3 row">
+						<div class="col-10">
+							<input class="form-control form-control mb-2" id="chat-input" type="text" placeholder="Type your query here">
+						</div>
+						<div class="col-2">
+							<button id="transmit-button" class="btn btn-dark btn-rounded" onclick="sendQuery()"><i class="fa-solid fa-paper-plane"></i></i>  Transmit</button>
+						</div>
+					</div>
+					<div class="mt-3 row">
+						<div class="col">
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('Provide me a brief summary for June.')">June Summary</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('Provide me a brief summary for this month.')">July Summary</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('From the data within the month of June, what is the average number of items redeemed per transaction for June?')">Redemption average for June</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('From the data within the month of July, what is the average number of items redeemed per transaction for July?')">Redemption average for July</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('Which type of item (Plastic Bottles, Aluminum Cans, Glass Bottles) is most frequently redeemed June?')">Frequently Redeemed Item for June</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('Which type of item (Plastic Bottles, Aluminum Cans, Glass Bottles) is most frequently redeemed July?')">Frequently Redeemed Item for July</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('On which date were the most items redeemed for June')">Most Items for Redeemed June</button>
+							<button class="btn btn-outline-secondary btn-sm question-button" onclick="setQuery('On which date were the most items redeemed for July')">Most Items for Redeemed July</button>
+							<button class="btn btn-outline-warning btn-sm question-button" onclick="setQuery('Provide me with the latest activity for July')">Today's Activity</button>
+							<!-- Add more buttons as needed -->
+						</div>
+					</div>
+				</div>
+			</div>	
+    	</section>
+
+		<!-- Video Modal -->
+		<section>
+		<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+				<!-- Embed YouTube video. Replace 'VIDEO_ID' with your YouTube video's ID -->
+				<iframe width="100%" height="315" src="https://www.youtube.com/embed/nG0Kt1Xzk60" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			</div>
+		</div>
+		</section>
+		
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+				<div class="container">
+
+					<div class="row col-mb-30">
+
+						<div class="col-md-6 text-center text-md-start">
+							Copyrights &copy; 2023 All Rights Reserved by Redemption Express LLC<br>
+							<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
+						</div>
+
+					</div>
+
+				</div>
+			</div><!-- #copyrights end -->
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="uil uil-angle-up"></div>
+
+	<!-- JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/functions.js"></script>
+
+	<!--Data Table-->
+
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			fetch('/shippedData')
+			  .then(response => response.json())
+			  .then(data => {
+				const tableBody = document.getElementById('shippedBody');
+				data.forEach(item => {
+				  const row = document.createElement('tr');
+				  row.innerHTML = `
+					<td>${item.fields['Pickup Company']}</td>
+					<td>${item.fields['Shipped Date']}</td>
+					<td>${item.fields['Plastic Bottle Bags Shipped']}</td>
+					<td>${item.fields['Aluminum Can Bags Shipped']}</td>
+					<td>${item.fields['Glass Bottle Cases Shipped']}</td>
+					<td>${item.fields['Total Bags Shipped']}</td>
+					<td>${item.fields['Total Glass Cases Shipped']}</td>
+					<td>${item.fields['Invoice Paid']}</td>
+				  `;
+				  tableBody.appendChild(row);
+				});
+		  
+				// Initialize the DataTable here after the table has been populated
+				$('#shippedTable').DataTable({
+				  searching: true,
+				  pageLength: 10,
+				  lengthMenu: [10, 20, 50, 100, 200, 700]
+				});
+			  })
+			  .catch(error => {
+				console.error('Error:', error);
+			  });
+		  });
+		  
+	</script>
+
+	<!-----STACK-AI----->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
